@@ -1,3 +1,9 @@
+import { UserButton } from "@clerk/nextjs";
+
 export default function Home() {
-  return <h1>BookMyEvent</h1>;
+  return (
+    <div className="p-10">
+      <UserButton />
+    </div>
+  );
 }

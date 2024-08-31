@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cl-internal-1dauvpw {
+  display: none !important;
+}
+.cl-userButtonPopoverFooter {
+  display: none !important;
+}
