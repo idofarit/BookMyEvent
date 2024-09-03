@@ -12,7 +12,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#000",
+        primary: "#5e1ed5",
+        "primary-btn": "var(--primary-btn)",
+        "primary-txt": "var(--primary-txt)",
       },
     },
   },

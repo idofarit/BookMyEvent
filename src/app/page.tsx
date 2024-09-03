@@ -1,9 +1,12 @@
+import { handleNewUserRegistration } from "@/actions/users";
 import { UserButton } from "@clerk/nextjs";
 
-export default function Home() {
+export default async function Home() {
+  await handleNewUserRegistration();
+
   return (
-    <div className="p-10">
-      <UserButton />
+    <div>
+      <h1>BookMyEvent</h1>
     </div>
   );
 }
