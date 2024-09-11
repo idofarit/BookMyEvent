@@ -6,17 +6,38 @@ import LocationAndDate from "./LocationAndDate";
 import Media from "./Media";
 import Tickets from "./Tickets";
 import { useState } from "react";
+import { uploadImagesToFirebase } from "@/helpers/imageUpload";
+import toast from "react-hot-toast";
 
 function EventForm() {
   const [activeStep = 0, setActiveStep] = useState<number>(0);
 
+  const [newlySelectedImages = [], setNewlySelectedImages] = useState<any[]>(
+    []
+  );
+
   const [event, setEvent] = useState<any>(null);
 
-  function onSubmit(e: any) {
+  async function onSubmit(e: any) {
     e.preventDefault();
+    try {
+      event.images = await uploadImagesToFirebase(
+        newlySelectedImages.map((image: any) => image.file)
+      );
+      console.log(event);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   }
 
-  const commonProps = { event, setEvent, activeStep, setActiveStep };
+  const commonProps = {
+    event,
+    setEvent,
+    activeStep,
+    setActiveStep,
+    newlySelectedImages,
+    setNewlySelectedImages,
+  };
 
   return (
     <div>
@@ -26,7 +47,11 @@ function EventForm() {
           stepsContent={[
             <General {...commonProps} />,
             <LocationAndDate {...commonProps} />,
-            <Media {...commonProps} />,
+            <Media
+              {...commonProps}
+              newlySelectedImages={newlySelectedImages}
+              setNewlySelectedImages={setNewlySelectedImages}
+            />,
             <Tickets {...commonProps} />,
           ]}
           activeStep={activeStep}

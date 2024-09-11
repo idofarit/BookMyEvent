@@ -29,7 +29,7 @@ function StepsPage({ stepName, stepsContent, activeStep }: StepProps) {
                   {index + 1}
                 </div>
 
-                {activeStep > index && activeStep !== stepN.length - 1 && (
+                {activeStep > index && index !== stepN.length - 1 && (
                   <div className="h-1 w-full bg-primary-btn"></div>
                 )}
 
