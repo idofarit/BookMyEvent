@@ -9,6 +9,7 @@ function Tickets({
   setNewlySelectedImages,
   activeStep,
   newlySelectedImages,
+  loading,
 }: EventFormStepProp) {
   const onAddTicketType = () => {
     try {
@@ -67,11 +68,11 @@ function Tickets({
                   onTicketPropertyChange({
                     index,
                     property: "name",
-                    value: Number(e.target.value),
+                    value: e.target.value,
                   })
                 }
                 value={ticketType.name}
-                type="number"
+                type="string"
               />
               <Input
                 placeholder="Price"
@@ -91,10 +92,11 @@ function Tickets({
                   onTicketPropertyChange({
                     index,
                     property: "limit",
-                    value: e.target.value,
+                    value: Number(e.target.value),
                   })
                 }
                 value={ticketType.limit}
+                type="number"
               />
               <Button isIconOnly onClick={() => onTicketTypeDelete(index)}>
                 <i className="ri-delete-bin-6-line"></i>
@@ -112,6 +114,7 @@ function Tickets({
           type="submit"
           isDisabled={event?.ticketTypes?.length === 0}
           color="primary"
+          isLoading={loading}
         >
           Submit
         </Button>

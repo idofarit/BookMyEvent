@@ -1,6 +1,9 @@
 "use server";
+import { connectMongoDB } from "@/config/dbConfig";
 import UserModel from "@/models/user-model";
 import { currentUser } from "@clerk/nextjs/server";
+
+connectMongoDB();
 
 export const handleNewUserRegistration = async () => {
   try {
@@ -8,22 +11,22 @@ export const handleNewUserRegistration = async () => {
 
     // check user if user already exists
 
-    const mongoDbUserPayload = {
+    const userExists = await UserModel.findOne({
+      clerkUserID: clerkUserDetails?.id,
+    });
+    if (userExists) return userExists;
+
+    const newUser = new UserModel({
       firstName: clerkUserDetails?.firstName + " " + clerkUserDetails?.lastName,
-      email: clerkUserDetails?.emailAddresses[0].emailAddress,
+      email: clerkUserDetails?.emailAddresses[0]?.emailAddress,
       clerkUserID: clerkUserDetails?.id,
       isActive: true,
       isAdmin: false,
-    };
+    });
 
-    const newUser = new UserModel(mongoDbUserPayload);
     await newUser.save();
 
-    return {
-      success: true,
-      message: "user saved to mongoDb",
-      data: JSON.parse(JSON.stringify(newUser)),
-    };
+    return newUser;
   } catch (error: any) {
     return {
       success: false,
@@ -39,28 +42,9 @@ export const getCurrentUserFromMongoDb = async () => {
     const user = await UserModel.findOne({ clerkUserID: clerkUserDetails?.id });
 
     if (user) {
-      return {
-        success: true,
-        data: JSON.parse(JSON.stringify(user)),
-      };
+      return user._id;
     }
-
-    const saveUserResponse = await handleNewUserRegistration();
-    if (saveUserResponse) {
-      return {
-        success: true,
-        data: saveUserResponse.data,
-      };
-    }
-
-    return {
-      success: false,
-      message: "User not found in MongoDB",
-    };
   } catch (error: any) {
-    return {
-      success: false,
-      message: error.message,
-    };
+    throw new Error(error);
   }
 };

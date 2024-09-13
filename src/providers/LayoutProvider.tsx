@@ -1,6 +1,5 @@
 "use client";
 
-import { belanosima, lobster } from "@/app/fonts";
 import { UserButton } from "@clerk/nextjs";
 import {
   Button,
@@ -56,7 +55,10 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
     <div className="absolute inset-0 -z-10 w-full overflow-hidden overflow-y-scroll no-scrollbar bg-white [background:radial-gradient(125%_125%_at_50%_10%,#ffffff81_40%,#63e_100%)]">
       {isPrivateRoute && (
         <div className=" flex justify-between items-center p-8">
-          <div className="main-div" onClick={() => router.push("/")}>
+          <div
+            className="main-div cursor-pointer"
+            onClick={() => router.push("/")}
+          >
             <span>Book</span>
             <span>My</span>
             <span>Events</span>

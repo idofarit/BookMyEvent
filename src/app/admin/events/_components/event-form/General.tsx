@@ -8,6 +8,9 @@ export interface EventFormStepProp {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   newlySelectedImages: any[];
   setNewlySelectedImages: React.Dispatch<React.SetStateAction<any[]>>;
+  alreadyUploadedImages: string[];
+  setAlreadyUploadedImages: React.Dispatch<React.SetStateAction<string[]>>;
+  loading: boolean;
 }
 
 function General({
@@ -40,19 +43,19 @@ function General({
     }
 
     // if already guests are present
-    if (event?.guest) {
-      newGuest.push(...event.guest);
+    if (event?.guests) {
+      newGuest.push(...event.guests);
     }
 
-    setEvent({ ...event, guest: newGuest });
+    setEvent({ ...event, guests: newGuest });
     setGuest("");
   };
 
   const onGuestRemove = (guestToRemove: number) => {
-    const newGuest = event?.guest?.filter(
+    const newGuest = event?.guests?.filter(
       (_: string, index: number) => index !== guestToRemove
     );
-    setEvent({ ...event, guest: newGuest });
+    setEvent({ ...event, guests: newGuest });
   };
 
   return (
@@ -78,7 +81,7 @@ function General({
         </Button>
       </div>
       <div className="flex flex-wrap gap-5">
-        {event?.guest?.map((item: string, id: number) => (
+        {event?.guests?.map((item: string, id: number) => (
           <Chip key={id} onClose={() => onGuestRemove(id)}>
             {item}
           </Chip>

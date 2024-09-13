@@ -10,6 +10,8 @@ function Media({
   setEvent,
   setActiveStep,
   activeStep,
+  alreadyUploadedImages,
+  setAlreadyUploadedImages,
 }: EventFormStepProp) {
   const uploadFileRef = useRef<HTMLInputElement>(null);
 
@@ -31,10 +33,16 @@ function Media({
     }
   };
 
-  const onRemove = (index: number) => {
+  const onNewUploadedRemove = (index: number) => {
     const tempImages: any[] = [...newlySelectedImages];
     tempImages.splice(index, 1);
     setNewlySelectedImages(tempImages);
+  };
+
+  const onAlreadyUploadedRemove = (index: number) => {
+    const tempImages: string[] = [...alreadyUploadedImages];
+    tempImages.splice(index, 1);
+    setAlreadyUploadedImages(tempImages);
   };
 
   return (
@@ -57,6 +65,22 @@ function Media({
       {/* show the newly selected images */}
 
       <div className="flex gap-5">
+        {alreadyUploadedImages?.map((image: any, index: number) => (
+          <div className="border pb-3 rounded flex flex-col gap-5" key={index}>
+            <img
+              className="w-40 h-40 object-cover"
+              src={image}
+              key={index}
+              alt="newly selected"
+            />
+            <h3
+              onClick={() => onAlreadyUploadedRemove(index)}
+              className="cursor-pointer underline text-center"
+            >
+              remove
+            </h3>
+          </div>
+        ))}
         {newlySelectedImages?.map((image: any, index: number) => (
           <div className="border pb-3 rounded flex flex-col gap-5" key={index}>
             <img
@@ -66,7 +90,7 @@ function Media({
               alt="newly selected"
             />
             <h3
-              onClick={() => onRemove(index)}
+              onClick={() => onNewUploadedRemove(index)}
               className="cursor-pointer underline text-center"
             >
               remove
