@@ -50,8 +50,8 @@ function EventForm({ initialData, type = "create" }: Props) {
         await axios.put(`/api/admin/events/${event._id}`, event);
         toast.success("Event updated successfully");
       }
-      router.refresh();
       router.push("/admin/events");
+      router.refresh();
     } catch (error: any) {
       toast.error(error.message);
     } finally {
