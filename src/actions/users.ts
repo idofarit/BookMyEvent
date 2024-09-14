@@ -17,7 +17,9 @@ export const handleNewUserRegistration = async () => {
     if (userExists) return userExists;
 
     const newUser = new UserModel({
-      firstName: clerkUserDetails?.firstName + " " + clerkUserDetails?.lastName,
+      userName:
+        clerkUserDetails?.username ||
+        `${clerkUserDetails?.firstName} ${clerkUserDetails?.lastName} `,
       email: clerkUserDetails?.emailAddresses[0]?.emailAddress,
       clerkUserID: clerkUserDetails?.id,
       isActive: true,

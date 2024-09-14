@@ -16,6 +16,8 @@ interface Props {
 async function BookEventPage({ params }: Props) {
   const event: EventType = (await EventModel.findById(params.eventID)) as any;
 
+  const eventBookings = await BookingModel.find({ event: params.eventID });
+
   const getEventProperty = (property: string) => {
     return (
       <div className="flex flex-col text-sm">
@@ -79,7 +81,10 @@ async function BookEventPage({ params }: Props) {
       </div>
 
       {/* tickets */}
-      <TicketSelection event={JSON.parse(JSON.stringify(event))} />
+      <TicketSelection
+        event={JSON.parse(JSON.stringify(event))}
+        eventBookings={JSON.parse(JSON.stringify(eventBookings))}
+      />
     </div>
   );
 }

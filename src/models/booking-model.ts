@@ -10,7 +10,7 @@ const bookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
     },
-    paymentId: {
+    paymentID: {
       type: String,
       required: true,
     },
@@ -26,11 +26,11 @@ const bookingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    status: {
-      type: String,
-      required: true,
-      default: "booked",
-    },
+    // status: {
+    //   type: String,
+    //   required: true,
+    //   default: "booked",
+    // },
   },
   { timestamps: true }
 );
