@@ -55,7 +55,7 @@ function PaymentModel({
       if (result.error) {
         toast.error(result.error.message!);
       } else {
-        toast.success("Payment successfull");
+        toast.success("Payment successful");
 
         const reqBody = {
           event: event._id,
