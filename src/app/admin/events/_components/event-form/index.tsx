@@ -5,11 +5,12 @@ import General from "./General";
 import LocationAndDate from "./LocationAndDate";
 import Media from "./Media";
 import Tickets from "./Tickets";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { uploadImagesToFirebase } from "@/helpers/imageUpload";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 interface Props {
   initialData?: any;
@@ -17,18 +18,18 @@ interface Props {
 }
 
 function EventForm({ initialData, type = "create" }: Props) {
-  const [alreadyUploadedImages = [], setAlreadyUploadedImages] = useState<
+  const [alreadyUploadedImages = [], setAlreadyUploadedImages] = React.useState<
     string[]
   >([]);
 
-  const [event, setEvent] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [event, setEvent] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  const [activeStep = 0, setActiveStep] = useState<number>(0);
+  const [activeStep = 0, setActiveStep] = React.useState<number>(0);
 
-  const [newlySelectedImages = [], setNewlySelectedImages] = useState<any[]>(
-    []
-  );
+  const [newlySelectedImages = [], setNewlySelectedImages] = React.useState<
+    any[]
+  >([]);
 
   const router = useRouter();
 

@@ -8,6 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import toast from "react-hot-toast";
 import PaymentModel from "./PaymentModel";
+import React from "react";
 const stripePromise = loadStripe(
   "pk_test_51PyqwTSCeV407w3FjOMewpUZx0915BHV19ArXwSFWiiIieFmCCL7NBiwThG4IYJaAqu2kjwIlLq4V4e5sIxBITYi00w1eh9enZ"
 );
@@ -18,17 +19,17 @@ interface TicketSelectionProp {
 }
 
 function TicketSelection({ event, eventBookings }: TicketSelectionProp) {
-  const [ticketCount, setTicketCount] = useState(1);
-  const [seletedTicketType, setSelectedTicketType] = useState(
+  const [ticketCount, setTicketCount] = React.useState(1);
+  const [seletedTicketType, setSelectedTicketType] = React.useState(
     event.ticketTypes[0].name
   );
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = React.useState("");
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = React.useState(0);
 
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = React.useState(false);
 
   useEffect(() => {
     const ticketType = event.ticketTypes.find(

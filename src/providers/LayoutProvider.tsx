@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
 function LayoutProvider({ children }: { children: React.ReactNode }) {
@@ -26,10 +26,10 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 
   const menusForUser = [
     { title: "Home", path: "/" },
-    { title: "Bookings", path: "/user/bookings" },
+    { title: "Bookings", path: "/bookings" },
   ];
 
-  const [menusToShow, setMenusToShow] = useState<any[]>([]);
+  const [menusToShow, setMenusToShow] = React.useState<any[]>([]);
 
   const pathName = usePathname();
 

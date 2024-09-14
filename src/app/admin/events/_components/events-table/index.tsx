@@ -12,15 +12,15 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 
 function EventsTable({ events }: { events: EventType[] }) {
   const router = useRouter();
 
-  const [selectedIDtoDelete, setSelectedIDtoDelete] = useState("");
+  const [selectedIDtoDelete, setSelectedIDtoDelete] = React.useState("");
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const onDelete = async (id: string) => {
     try {
