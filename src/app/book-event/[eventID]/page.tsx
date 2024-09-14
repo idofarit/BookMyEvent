@@ -3,6 +3,7 @@ import { EventType } from "@/interfaces/events";
 import BookingModel from "@/models/booking-model";
 import EventModel from "@/models/event-model";
 import Image from "next/image";
+import TicketSelection from "../_components/TicketSelection";
 
 connectMongoDB();
 
@@ -26,6 +27,8 @@ async function BookEventPage({ params }: Props) {
 
   return (
     <div>
+      {/* header */}
+
       <div className="bg-gray-700 p-5">
         <h1 className="text-3xl text-white font-semibold">{event.name}</h1>
         <div className="text-sm">
@@ -41,9 +44,13 @@ async function BookEventPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* images */}
+
       <div className="flex gap-5 p-3 flex-wrap overflow-auto mt-5">
         {event.images.map((image) => (
           <img
+            key={image}
             src={image}
             alt="Picture of event"
             height={330}
@@ -53,7 +60,11 @@ async function BookEventPage({ params }: Props) {
         ))}
       </div>
 
+      {/* description */}
+
       <p className="w-full mt-5 text-sm">{event.description}</p>
+
+      {/* info */}
 
       <div className="mt-10  rounded-sm grid grid-cols-1 md:grid-cols-3 gap-5">
         {getEventProperty("organizer")}
@@ -66,6 +77,9 @@ async function BookEventPage({ params }: Props) {
           <h1 className="text-gray-600">{event.guests.join(", ")}</h1>
         </div>
       </div>
+
+      {/* tickets */}
+      <TicketSelection event={JSON.parse(JSON.stringify(event))} />
     </div>
   );
 }
